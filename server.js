@@ -10,6 +10,9 @@ app.use(express.json());
 const userRoutes = require('./routes/user');
 app.use('/user', userRoutes);
 
+const rosterRoutes = require('./routes/roster');
+app.use('/roster', rosterRoutes);
+
 // Sample Route
 app.get('/', (req, res) => {
   res.send('Hello, world!');
