@@ -13,13 +13,16 @@ app.use('/user', userRoutes);
 const rosterRoutes = require('./routes/roster');
 app.use('/roster', rosterRoutes);
 
+const shiftsRoutes = require('./routes/shift');
+app.use('/shift', shiftsRoutes);
+
 // Sample Route
 app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
 
 // Start the server
-const port = process.env.PORT || 3000;
+const port = 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
@@ -27,6 +30,3 @@ app.listen(port, () => {
 
 
 
-module.exports = {
-  app,
-}
