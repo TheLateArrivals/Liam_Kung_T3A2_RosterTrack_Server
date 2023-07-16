@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
+const { User } = require('./models/User');
+
 
 // Middleware
 app.use(cors());
@@ -20,11 +22,11 @@ app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
 
-// Connect to MongoDB
-const MONGO_URI = 'mongodb://localhost:27017/mydatabase'; // Replace 'mydatabase' with the name of your database
+// Connect to MongoDB Atlas
+const MONGO_URI = 'mongodb+srv://Liam:eNlGkI65Gg76e51G@rostettrack.jwdl48x.mongodb.net/rostettrack?retryWrites=true&w=majority';
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log('Connected to local MongoDB');
+    console.log('Connected to MongoDB Atlas');
     // Start the server after successful MongoDB connection
     const port = process.env.PORT || 3000;
     app.listen(port, () => {
@@ -32,5 +34,6 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     });
   })
   .catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
+    console.error('Error connecting to MongoDB Atlas:', error);
   });
+
