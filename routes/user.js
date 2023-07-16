@@ -48,9 +48,30 @@ router.post('/register', async (req, res) => {
   });
 
   // POST /user/admin - Create a new admin user
-router.post('/admin', (req, res) => {
-    res.send('Admin user created successfully');
+  router.post('/admin', async (req, res) => {
+    const { username, password, email } = req.body;
+  
+    try {
+      // Check if the user already exists in the database
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(409).json({ message: 'User already exists' });
+      }
+  
+      // Create a new user instance with admin role
+      const newUser = new User({ username, password, email, role: 'admin' });
+  
+      // Save the user to the database
+      await newUser.save();
+  
+      res.status(201).json({ message: 'Admin user created successfully' });
+    } catch (error) {
+      console.error('Error creating admin user:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
   });
+
+
   
   // PUT /user/:id/admin - Grant admin privileges to a user
 router.put('/:id/admin', (req, res) => {
