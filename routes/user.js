@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models/User');
+const { generateAuthToken } = require('../middleware/auth');
 
 
-// POST /user/register - Register a new user
 // POST /user/register - Register a new user
 router.post('/register', async (req, res) => {
   const { username, password, email } = req.body;
@@ -33,9 +33,28 @@ router.post('/register', async (req, res) => {
   
   
   // POST /user/login - User login
-  router.post('/login', (req, res) => {
-    res.send('User logged in successfully');
+  router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+  
+    try {
+      // Find the user in the database by email
+      const user = await User.findOne({ email });
+  
+      // Check if the user exists and the password is correct
+      if (!user || !user.comparePassword(password)) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+      }
+  
+      // Generate an authentication token (e.g., using JWT) and send it in the response
+      const token = generateAuthToken(user);
+  
+      res.status(200).json({ token });
+    } catch (error) {
+      console.error('Error authenticating user:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
   });
+  
   
   // GET /user/logout - User logout
   router.get('/logout', (req, res) => {
@@ -72,7 +91,7 @@ router.post('/register', async (req, res) => {
   });
 
 
-  
+
   // PUT /user/:id/admin - Grant admin privileges to a user
 router.put('/:id/admin', (req, res) => {
     res.send('User role updated to admin successfully');
@@ -90,4 +109,3 @@ router.get('/admin', (req, res) => {
 
 module.exports = router;
 
-  
