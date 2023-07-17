@@ -1,3 +1,4 @@
+require('dotenv').config(); //import hidden dev credentials
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -23,10 +24,10 @@ app.get('/', (req, res) => {
 });
 
 // Connect to MongoDB Atlas
-const MONGO_URI = 'mongodb+srv://<username>:<password>@rostettrack.jwdl48x.mongodb.net/rostettrack?retryWrites=true&w=majority';
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('Connected to MongoDB Atlas');
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@rostettrack.jwdl48x.mongodb.net/`, 
+{ useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => {
+  console.log('Connected to MongoDB Atlas');
     // Start the server after successful MongoDB connection
     const port = process.env.PORT || 3000;
     app.listen(port, () => {
