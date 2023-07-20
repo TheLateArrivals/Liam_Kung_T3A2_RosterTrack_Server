@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models/User');
+const { authenticateToken, isAdmin } = require('../middleware/authmiddleware');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 const bcrypt = require('bcrypt');
@@ -100,7 +101,7 @@ router.post('/register', async (req, res) => {
   });
 
   // POST /user/admin - Create a new admin user
-  router.post('/admin', async (req, res) => {
+  router.post('/admin', authenticateToken, isAdmin, async (req, res) => {
     const { username, password, email } = req.body;
   
     try {
@@ -111,23 +112,21 @@ router.post('/register', async (req, res) => {
       }
   
       // Create a new user instance with admin role
-      bcrypt.hash(password.toString(), saltsRounds,  async (err, hash) => {
-        const newUser = new User({ username: username, password: hash, email:email, role: 'admin' });
-        const user = {name : username,email:email}
+      bcrypt.hash(password.toString(), saltsRounds, async (err, hash) => {
+        const newUser = new User({ username: username, password: hash, email: email, role: 'admin' });
+        const user = { name: username, email: email };
   
-        const accessToken = jwt.sign(user,process.env.SECRET_KEY)
+        const accessToken = jwt.sign(user, process.env.SECRET_KEY);
         // Save the user to the database
         await newUser.save();
-    
-        res.status(201).json({ message: 'Admin user created successfully',accessToken:accessToken });
-      })
-   
+  
+        res.status(201).json({ message: 'Admin user created successfully', accessToken: accessToken });
+      });
     } catch (error) {
       console.error('Error creating admin user:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
   });
-
 
   
   // PUT /user/:id/admin - Grant admin privileges to a user
