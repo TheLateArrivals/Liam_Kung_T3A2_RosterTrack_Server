@@ -1,25 +1,28 @@
 {
-  "name": "liam_kung_t3a2_rostertrack_server",
+  "name": "server",
   "version": "1.0.0",
-  "description": "T3A2 Server",
+  "description": "Server",
   "main": "server.js",
   "scripts": {
     "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yops320/Liam_Kung_T3A2_RosterTrack_Server.git"
+    "url": ""
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/yops320/Liam_Kung_T3A2_RosterTrack_Server/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/yops320/Liam_Kung_T3A2_RosterTrack_Server#readme",
+  "homepage": "",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jest": "^29.6.1",
+    "jsonwebtoken": "^9.0.1",
     "mongodb": "^5.6.0",
     "mongoose": "^7.3.1",
     "passport": "^0.6.0",
