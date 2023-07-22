@@ -13,7 +13,7 @@ app.use(helmet())
 const corsOption = {
   // the origin that we want to accept, i.e. our frontend
   origin: [
-    "http://localhost:3000",,
+    "http://localhost:3000",
   ],
   credentials: true,
   optionsSuccessStatus: 200,
@@ -21,7 +21,9 @@ const corsOption = {
 
 app.use(cors(corsOption))
 
-const PORT = process.env.PORT || 5000
+app.use(express.json()); //for parsing json data
+
+const PORT = process.env.PORT || 8080
 
 app.get("/", (request, response) => {
   response.json({

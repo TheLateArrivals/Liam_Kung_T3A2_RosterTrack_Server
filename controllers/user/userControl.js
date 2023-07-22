@@ -17,6 +17,7 @@ async function registerUser(user) {
   // Create a hash password for the user
   const hashedPassword = await bcrypt.hash(user.password, 10)
   const userCreated = await User.create({
+    email: user.email, // Updated to fix validate email issue
     username: user.username,
     password: hashedPassword,
   })

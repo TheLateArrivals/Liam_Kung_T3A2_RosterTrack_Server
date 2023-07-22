@@ -30,5 +30,8 @@
     "mongoose": "^7.3.1",
     "passport": "^0.6.0",
     "supertest": "^6.3.3"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
