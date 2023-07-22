@@ -4,16 +4,18 @@
   "description": "Server",
   "main": "server.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "seed": "node ./seed.js",
+    "start": "NODE_ENV=production node ./index.js"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/yops320/Liam_Kung_T3A2_RosterTrack_Server.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/yops320/Liam_Kung_T3A2_RosterTrack_Server.git"
   },
   "homepage": "",
   "dependencies": {
@@ -21,6 +23,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "helmet": "^7.0.0",
     "jest": "^29.6.1",
     "jsonwebtoken": "^9.0.1",
     "mongodb": "^5.6.0",

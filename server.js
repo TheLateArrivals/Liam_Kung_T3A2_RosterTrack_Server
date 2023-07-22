@@ -1,39 +1,38 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
-const mongoose = require('mongoose');
-const { User } = require('./models/User');
+const express = require("express")
+const cors = require("cors")
+const helmet = require("helmet")
+require("dotenv").config()
 
+const userRouter = require("./controllers/user/user")
+const shiftRouter = require("./controllers/shifts/shift")
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+const app = express()
 
-// Routes
-const userRoutes = require('./routes/user');
-const rosterRoutes = require('./routes/roster');
-const shiftsRoutes = require('./routes/shift');
-app.use('/user', userRoutes);
-app.use('/roster', rosterRoutes);
-app.use('/shift', shiftsRoutes);
+app.use(helmet())
 
-// Sample Route
-app.get('/', (req, res) => {
-  res.send('Hello, world!');
-});
+const corsOption = {
+  // the origin that we want to accept, i.e. our frontend
+  origin: [
+    "http://localhost:3000",,
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200,
+}
 
-// Connect to MongoDB Atlas
-const MONGO_URI = 'mongodb+srv://Liam:eNlGkI65Gg76e51G@rostettrack.jwdl48x.mongodb.net/rostettrack?retryWrites=true&w=majority';
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('Connected to MongoDB Atlas');
-    // Start the server after successful MongoDB connection
-    const port = process.env.PORT || 3000;
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
-    });
+app.use(cors(corsOption))
+
+const PORT = process.env.PORT || 5000
+
+app.get("/", (request, response) => {
+  response.json({
+    data: "Hello World",
   })
-  .catch((error) => {
-    console.error('Error connecting to MongoDB Atlas:', error);
-  });
+})
 
+app.use("/users", userRouter)
+app.use("/shifts", shiftRouter)
+
+module.exports = {
+  app,
+  PORT,
+}

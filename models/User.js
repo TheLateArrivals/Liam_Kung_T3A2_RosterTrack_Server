@@ -14,12 +14,13 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  role: {
-    type: String,
-    default: 'user',
-  },
+  is_admin: {
+    type: Boolean,
+    default: false,
+    required: true,
+  }
 });
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = { User };
+module.exports = User
