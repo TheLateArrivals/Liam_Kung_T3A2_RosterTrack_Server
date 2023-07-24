@@ -12,7 +12,7 @@ async function registerUser(user) {
     return { error: "Username already exists! Please try again" }
   }
   if (user.password == null || user.password.length < 5) {
-    return { error: "Password must be more than 5 characters!" }
+    return { error: "Your password must be more than 5 characters!" }
   }
   // Create a hash password for the user
   const hashedPassword = await bcrypt.hash(user.password, 10)
@@ -32,12 +32,12 @@ async function registerUser(user) {
 async function loginUser(user) {
   const existingUser = await User.findOne({ username: user.username })
   if (!existingUser) {
-    return { error: "incorrect username or password" }
+    return { error: "Incorrect username or password" }
   } 
   // Match the password
   const isMatch = await bcrypt.compare(user.password, existingUser.password)
   if (!isMatch) {
-    return { error: "incorrect username or password" }
+    return { error: "Incorrect username or password" }
   }
   // Create the token 
   const payload = {
