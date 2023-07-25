@@ -4,7 +4,7 @@ const helmet = require("helmet") // Helmet middleware for securing the applicati
 require("dotenv").config() // Loads environment variables from a .env file
 
 const userRouter = require("./controllers/user/user") // Router for user-related routes
-const shiftRouter = require("./controllers/shifts/shift") / Router for shift-related routes
+const shiftRouter = require("./controllers/shifts/shift") // Router for shift-related routes
 
 const app = express()
 // Enhance security by adding Helmet middleware
