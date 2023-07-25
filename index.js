@@ -4,21 +4,20 @@ const mongoose = require("mongoose");
 const { app } = require("./server");
 const PORT = 8080;
 
-// Generate a random 32-byte (256-bit) JWT secret as a string
+// Generate JWT secret as a string
 const jwtSecret = crypto.randomBytes(32).toString('hex');
-
+// start the server and establish the database connection
 async function startServer() {
   try {
-    // Connect to the MongoDB database using async/await
+    // Connect to the MongoDB database
     await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      // Other options if needed...
+      useNewUrlParser: true, // Use new URL parser
+      useUnifiedTopology: true, // Use new Server Discovery and Monitoring engine
     });
 
     console.log("Database connected");
 
-    // Example of a route that generates a JWT token and verifies it
+    // Example of a route that generates a JWT
     app.get('/example', (req, res) => {
       // Generate a JWT token
       const payload = { userId: 'someUserId' };
@@ -35,7 +34,7 @@ async function startServer() {
       }
     });
 
-    // Start the Express server after the database connection is established
+    // Start the Express server 
     app.listen(PORT, () => {
       console.log("Server Started");
       mongoose.set("strictQuery", false);
