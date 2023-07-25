@@ -3,7 +3,7 @@ const router = express.Router();
 
 // GET /roster - Get all rosters
 router.get('/', (req, res) => {
-    res.send('All rosters retrieved!');
+    res.send('Roster retrieved!');
   });
   
   // POST /roster - Create a new roster
