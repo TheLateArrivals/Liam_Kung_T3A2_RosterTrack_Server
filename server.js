@@ -5,6 +5,7 @@ require("dotenv").config() // Loads environment variables from a .env file
 
 const userRouter = require("./controllers/user/user") // Router for user-related routes
 const shiftRouter = require("./controllers/shifts/shift") // Router for shift-related routes
+const rosterRouter = require("./controllers/rosters/roster")
 
 const app = express()
 // Enhance security by adding Helmet middleware
@@ -33,6 +34,7 @@ app.get("/", (request, response) => {
 // handle routes
 app.use("/users", userRouter)
 app.use("/shifts", shiftRouter)
+app.use("/roster", rosterRouter)
 
 module.exports = {
   app,
