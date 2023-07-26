@@ -29,7 +29,8 @@
     "mongodb": "^5.6.0",
     "mongoose": "^7.3.1",
     "passport": "^0.6.0",
-    "supertest": "^6.3.3"
+    "supertest": "^6.3.3",
+    "wrangler": "^3.3.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3"
