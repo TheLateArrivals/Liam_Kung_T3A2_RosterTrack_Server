@@ -12,7 +12,8 @@ const { admin } = require("../../middleware/admin")
 const userRouter = express.Router()
 
 // Create user/staff
-userRouter.post("/register", async (request, response) => {  
+userRouter.post("/register", async (request, response) => {
+  console.log(request.body);  
   const token = await registerUser({
     email: request.body.email, // Updated to fix validate email issue
     username: request.body.username,
