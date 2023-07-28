@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "seed": "node ./seed.js",
-    "start": "NODE_ENV=production node ./index.js",
+    "start": "set NODE_ENV=production && node ./index.js",
     "build": "webpack --config webpack.config.js"
   },
   "repository": {
