@@ -13,9 +13,9 @@ async function getShifts(id) {
 }
 
 // Create a new shift
-async function createShift(shift) {
-  const newShift = await shift.create(shift)
-  return newShift
+async function createShift(newShift) {
+  const creadtedShift = await Shift.create(newShift)
+  return creadtedShift;
 }
 
 // Update a Shift
