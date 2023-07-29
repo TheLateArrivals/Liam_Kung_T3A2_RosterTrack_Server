@@ -30,22 +30,33 @@ async function registerUser(user) {
 
 // Login user
 async function loginUser(user) {
-  const existingUser = await User.findOne({ username: user.username })
+  console.log("Attempting to log in user:", user);
+
+  const existingUser = await User.findOne({ username: user.username });
+  console.log("Found user:", existingUser);
+
   if (!existingUser) {
-    return { error: "Incorrect username or password" }
+    console.log("User not found");
+    return { error: "Incorrect username or password" };
   } 
+
   // Match the password
-  const isMatch = await bcrypt.compare(user.password, existingUser.password)
+  const isMatch = await bcrypt.compare(user.password, existingUser.password);
+  console.log("Password match result:", isMatch);
+
   if (!isMatch) {
-    return { error: "Incorrect username or password" }
+    console.log("Password does not match");
+    return { error: "Incorrect username or password" };
   }
+
   // Create the token 
-  const payload = {
-    id: existingUser._id,
-  }
-  const token = jwt.sign(payload, process.env.JWT_SECRET)
-  return token
+  const payload = { id: existingUser._id };
+  const token = jwt.sign(payload, process.env.JWT_SECRET);
+
+  console.log("Generated token:", token);
+  return token;
 }
+
 
 // Delete a user
 async function deleteUser(userId) {
