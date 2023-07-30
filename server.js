@@ -16,7 +16,10 @@ const corsOption = {
   optionsSuccessStatus: 200,
 };
 // Enable CORS with the specified options
-app.use(cors(corsOption))
+app.use(cors(corsOption));
+
+// Enable pre-flight request for all routes
+app.options('*', cors(corsOption));
 
 app.use(express.json()); //for parsing json data
 
