@@ -12,14 +12,10 @@ const app = express()
 app.use(helmet())
 // Configure CORS options
 const corsOption = {
-  // Frontend
-  origin: [
-    process.env.REACT_APP_FRONT_DEV_URL, 
-    process.env.REACT_APP_FRONT_PROD_URL, // Allowed origins
-  ],
-  credentials: true, // Allow sending and receiving cookies in cross-origin requests
-  optionsSuccessStatus: 200, //status code to be sent for successful CORS preflight requests
-}
+  origin: "*",
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
 // Enable CORS with the specified options
 app.use(cors(corsOption))
 
