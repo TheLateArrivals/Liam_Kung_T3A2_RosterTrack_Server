@@ -12,8 +12,7 @@ const app = express()
 app.use(helmet())
 // Configure CORS options
 const corsOption = {
-  origin: "*",
-  credentials: true,
+  origin: "*",  
   optionsSuccessStatus: 200,
 };
 // Enable CORS with the specified options
