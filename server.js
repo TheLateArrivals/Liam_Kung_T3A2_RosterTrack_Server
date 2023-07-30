@@ -14,8 +14,8 @@ app.use(helmet())
 const corsOption = {
   // Frontend
   origin: [
-    process.env.FRONTEND_DEV_URL, 
-    process.env.FRONTEND_PROD_URL, // Allowed origins
+    process.env.REACT_APP_FRONT_DEV_URL, 
+    process.env.REACT_APP_FRONT_PROD_URL, // Allowed origins
   ],
   credentials: true, // Allow sending and receiving cookies in cross-origin requests
   optionsSuccessStatus: 200, //status code to be sent for successful CORS preflight requests
