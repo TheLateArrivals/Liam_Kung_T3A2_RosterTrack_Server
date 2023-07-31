@@ -11,6 +11,7 @@ const app = express()
 // Enhance security by adding Helmet middleware
 app.use(helmet())
 // Configure CORS options
+const cors = require('cors');
 const corsOption = {
   origin: "*",  
   optionsSuccessStatus: 200,
