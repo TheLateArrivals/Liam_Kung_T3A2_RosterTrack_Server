@@ -1,5 +1,5 @@
-const express = require("express")
 const cors = require("cors")
+const express = require("express")
 const helmet = require("helmet") // Helmet middleware for securing the application
 require("dotenv").config() // Loads environment variables from a .env file
 
@@ -11,7 +11,6 @@ const app = express()
 // Enhance security by adding Helmet middleware
 app.use(helmet())
 // Configure CORS options
-const cors = require('cors');
 const corsOption = {
   origin: "*",  
   optionsSuccessStatus: 200,
