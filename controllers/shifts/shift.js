@@ -1,36 +1,42 @@
-const express = require("express")
+const express = require("express");
 
 const {
   findShifts,
   getShifts,
   createShift,
   updateShift,
-} = require("./shiftControl")
+} = require("./shiftControl");
 
-const { auth } = require("../../middleware/auth")
+const { auth } = require("../../middleware/auth");
 
-const shiftRouter = express.Router()
+const shiftRouter = express.Router();
 
 // Get shifts
 shiftRouter.get("/", async (request, response) => {
-  const shifts = await findShifts({    
-  })
-  return response.json(shifts)
-})
+  try {
+    const shifts = await findShifts({});
+    response.json(shifts);
+  } catch (error) {
+    response.status(500).json({ error: "Internal server error" });
+  }
+});
 
 // Get specific shift
 shiftRouter.get("/:shiftId", async (request, response) => {
   try {
-    const shiftId = request.params.shiftIdId
-    const shift = await getShifts(shiftId)
-    return response.json(shift)
+    const shiftId = request.params.shiftId;
+    const shift = await getShifts(shiftId);
+    if (!shift) {
+      return response.status(404).json({ error: "Shift not found" });
+    }
+    response.json(shift);
   } catch (error) {
-    response.sendStatus(404)
+    response.status(500).json({ error: "Internal server error" });
   }
-})
+});
 
 // Create new shift
-shiftRouter.post("/", auth, async (request, response) => {
+shiftRouter.post("/", async (request, response) => {
   try {
     const shift = await createShift({
       day: request.body.date,
@@ -39,12 +45,12 @@ shiftRouter.post("/", auth, async (request, response) => {
       startTime: request.body.startTime,
       endTime: request.body.endTime,
       location: request.body.location,
-    })
-    return response.json(shift)
+    });
+    response.json(shift);
   } catch (error) {
-    return response.status(400).json({ data: error })
+    response.status(400).json({ error: "Bad request" });
   }
-})
+});
 
 // Update shift
 shiftRouter.put("/:shiftId", auth, async (request, response) => {
@@ -56,11 +62,11 @@ shiftRouter.put("/:shiftId", auth, async (request, response) => {
       startTime: request.body.startTime,
       endTime: request.body.endTime,
       location: request.body.location,
-    })
-    return response.json(updatedShift)
+    });
+    response.json(updatedShift);
   } catch (error) {
-    return response.sendStatus(404)
+    response.status(404).json({ error: "Shift not found" });
   }
-})
+});
 
-module.exports = shiftRouter
+module.exports = shiftRouter;
