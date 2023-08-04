@@ -12,7 +12,8 @@ const app = express()
 app.use(helmet())
 // Configure CORS options
 const corsOption = {
-  origin: "*",  
+  origin: "*",
+  credentials: true, // Allow credentials to be sent with requests
   optionsSuccessStatus: 200,
 };
 // Enable CORS with the specified options
@@ -23,11 +24,11 @@ app.options('*', cors(corsOption));
 
 app.use(express.json()); //for parsing json data
 
-const PORT = process.env.PORT || 443 // port number to listen on
+const PORT = process.env.PORT || 80 // port number to listen on
 // route to check if the server is running
 app.get("/", (request, response) => {
   response.json({
-    data: "Hello World",
+    message: "Hello World",
   })
 })
 // handle routes
