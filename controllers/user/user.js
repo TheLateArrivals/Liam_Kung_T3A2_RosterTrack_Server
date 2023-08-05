@@ -1,8 +1,9 @@
-const express = require("express")
-const { registerUser, loginUser, deleteUser, listUserShifts } = require("./userControl")
-const { auth } = require("../../middleware/auth")
-const { admin } = require("../../middleware/admin")
-const userRouter = express.Router()
+const express = require("express");
+const { registerUser, loginUser, deleteUser, listUserShifts } = require("./userControl");
+const { auth } = require("../../middleware/auth");
+const { admin } = require("../../middleware/admin");
+const userRouter = express.Router();
+const Staff = require("../../models/Staff"); 
 
 // Create user/staff
 userRouter.post("/register", async (request, response) => {  
@@ -58,5 +59,18 @@ userRouter.get("/:userId/shifts", auth, async (request, response) => {
   const shifts = await listUserShifts(request.params.userId)
   return response.json(shifts)
 })
+
+// This endpoint allows you to add a staff member
+userRouter.post('/staff', auth, admin, async (req, res) => {
+  const { firstName, lastName, email } = req.body;
+  const staff= new Staff({ firstName, lastName, email });
+
+  try {
+    await staff.save();
+    res.send(staff);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
 module.exports = userRouter
