@@ -12,7 +12,7 @@ const app = express()
 app.use(helmet())
 // Configure CORS options
 const corsOption = {
-  origin: "*",
+  origin: [process.env.REACT_APP_FRONT_PROD_URL, process.env.REACT_APP_FRONT_DEV_URL],
   credentials: true, // Allow credentials to be sent with requests
   optionsSuccessStatus: 200,
 };
